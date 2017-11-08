@@ -1,0 +1,25 @@
+#!/bin/bash
+
+PACKAGE_ARCH=$(checkupdates | wc -l)
+
+URGENT_VALUE=0
+
+#if [[ $? -gt 0 ]]; then
+#  return
+#fi
+
+#PACKAGE_COUNT=$(yaourt -Quaq | wc -l) + "$PACKAGE_ARCH"
+#PACKAGE_COUNT = $(calc "$numAllPackages - $numArchPackages")
+
+if [[ "${PACKAGE_ARCH}" -gt 0 ]]; then
+  echo "${PACKAGE_ARCH}" # full-text
+  echo "${PACKAGE_ARCH}" # short-text
+  
+  if [[ "${PACKAGE_ARCH}" -gt "${URGENT_VALUE}" ]]; then
+    echo "#ff0000"
+    notify-send "Arch packages" "$PACKAGE_ARCH"
+  fi
+fi
+
+
+exit 0
